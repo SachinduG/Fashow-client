@@ -14,7 +14,7 @@ export const register = newUser => {
       console.log('Registered');
     })
     .catch(err => {
-      alert('Registration Failed')
+      console.log(err);
     });
 };
 

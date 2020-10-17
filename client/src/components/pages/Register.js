@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { register } from './UserFunctions';
+import { Link } from 'react-router-dom';
 
 class Register extends Component {
   constructor() {
@@ -114,8 +115,8 @@ class Register extends Component {
       };
 
       register(newUser).then(res => {
-        alert('Successfully Registered')
-        this.props.history.push(`/login`);
+          alert('Successfully Registered')
+          this.props.history.push(`/login`);
       });
     }
   }
@@ -127,6 +128,7 @@ class Register extends Component {
           <div className='col-md-6 mt-5 mx-auto'>
             <form noValidate onSubmit={this.onSubmit}>
               <h1 className='h3 mb-3 font-weight-normal' style={{marginLeft: 180}} ><label><span className="fa fa-user" style={{ fontSize: "28px" }}></span> </label> Register</h1>
+                <p>Already Registered?<Link to="/login" className="btn btn">Login</Link></p>
               <div className='form-group'>
                 <label htmlFor='First_Name'>First Name</label>
                 <input

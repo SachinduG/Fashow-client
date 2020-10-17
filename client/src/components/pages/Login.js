@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { login } from './UserFunctions';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor() {
@@ -76,19 +77,20 @@ class Login extends Component {
           <div className='col-md-6 mt-5 mx-auto'>
             <form noValidate onSubmit={this.onSubmit}>
               <h1 className='h3 mb-3 font-weight-normal' style={{marginLeft: 180}}>Sign In</h1>
+              <p>Don't you have an account ?<Link to="/register" className="btn btn">Register</Link></p>
               <div className="form-group " style={{ marginTop:50, display: "flex" }}>
                   <label><span className="fa fa-user" style={{ fontSize: "28px" }}></span> </label>
                   <div className="col-sm-12">
                     <input type="text"
                       className="form-control" placeholder="Email Address"
                       name="Email_Address"
-                      value={this.state.Email_Address} 
+                      value={this.state.Email_Address}
                       onChange={this.onChange} required
                     />
                     <span className="text-danger">{this.state.EmailAddressError}</span>
                   </div>
                 </div>
-                
+
                 <div className="form-group" style={{marginTop:50, marginBottom: 40, display: "flex" }}>
                   <label><span className="fa fa-lock" style={{ fontSize: "28px" }}></span> </label>
                   <div className="col-sm-12">
@@ -101,7 +103,7 @@ class Login extends Component {
                     <span className="text-danger">{this.state.PasswordError}</span>
                   </div>
                 </div>
-              
+
               <button
                 type='submit'
                 className='btn btn-lg btn-primary btn btn-outline-success'

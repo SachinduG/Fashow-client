@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
-import LandingHome from './components/LandingHome';
-import Login from './components/Login';
-import Register from './components/Register';
-import Profile from './components/Profile';
+import Navbar from './components/pages/Navbar';
+import Home from './components/pages/Home';
+import Login from './components/pages/Login';
+import Register from './components/pages/Register';
+import Profile from './components/pages/Profile';
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
       <Router>
         <div className='App'>
           <Navbar />
-          <Route exact path='/' component={LandingHome} />
+          <Route exact path='/' component={Home} />
           <div className='container'>
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
