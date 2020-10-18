@@ -5,11 +5,8 @@ import Dropdown from './Dropdown';
 import Dropdown1 from './Dropdown1';
 import './Navbar.css';
 
-
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
-
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -147,17 +144,15 @@ function Navbar() {
 
             <li>
               <Link
-                to='/sign-up'
+                to='/login'
                 className='nav-links-mobile'
                 onClick={closeMobileMenu}
               >
                 Login
               </Link>
             </li>
-          </ul>
+            </ul>
           {button && <Button buttonStyle='btn--outline1' className='btn'>LOGIN</Button>}
-
-          
           
           <li>
               <Link
@@ -213,8 +208,6 @@ function Navbar() {
             </Link>
           </div>
         </div>
-     
-    
       </nav>
     </>
   );

@@ -1,116 +1,113 @@
-import React, { Component } from 'react';
-import { login } from './UserFunctions';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
+import classnames from "classnames";
+import '../../App.css';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      Email_Address: '',
-      Password: '',
-      
-      EmailAddressError: '',
-      PasswordError:''
+      Email_Address: "",
+      Password: "",
+      errors: {}
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  validate = () => {
-    let isError = false;
-
-    const errors = {
-      EmailAddressError: "",
-      PasswordError: ""
-    };
-
-    if ("Email_Address" !== undefined){
-      var patter = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-      if(!patter.test(this.state.Email_Address)){
-        isError = true;
-        errors.EmailAddressError = "Please enter valid email address"
-      }
+componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/profile"); 
     }
-
-    if(this.state.Password.length < 6 ){
-      isError = true;
-      errors.PasswordError = "Please enter your password"
-    }
-
-    this.setState({
-      ...this.state,
-      ...errors
-  });
-
-  return isError;
-
-  }
-  onSubmit(e) {
-    e.preventDefault();
-
-    const err = this.validate();
-      if(!err){
-
-      const user = {
-        Email_Address: this.state.Email_Address,
-        Password: this.state.Password
-      };
-
-      login(user).then(res => {
-        if (res) {
-          alert('Successfully Logged In')
-          this.props.history.push(`/profile`);
-        }
+if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
       });
     }
   }
 
-  render() {
-    return (
-      <div className='container'>
-        <div className='jumbotron mt-4'>
-          <div className='col-md-6 mt-5 mx-auto'>
+onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
+onSubmit = e => {
+    e.preventDefault();
+const userData = {
+      Email_Address: this.state.Email_Address,
+      Password: this.state.Password
+    };
+this.props.loginUser(userData); 
+  };
+
+render() {
+    const { errors } = this.state;
+    
+return (
+      <div className="container">
+        <div style={{ marginTop: "4rem" }} className="row">
+          <div className="col s8 offset-s2">
+            <Link to="/" className="btn-flat waves-effect">
+              <i className="material-icons left">keyboard_backspace</i> Back to
+              home
+            </Link>
+            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+              <h3>
+                <b>Sign In for Fashow</b> 
+              </h3>
+              <p className="grey-text text-darken-1">
+                Don't have an account? <Link to="/register">Register</Link>
+              </p>
+            </div>
             <form noValidate onSubmit={this.onSubmit}>
-              <h1 className='h3 mb-3 font-weight-normal' style={{marginLeft: 180}}>Sign In</h1>
-              <p>Don't you have an account ?<Link to="/register" className="btn btn">Register</Link></p>
-              <div className="form-group " style={{ marginTop:50, display: "flex" }}>
-                  <label><span className="fa fa-user" style={{ fontSize: "28px" }}></span> </label>
-                  <div className="col-sm-12">
-                    <input type="text"
-                      className="form-control" placeholder="Email Address"
-                      name="Email_Address"
-                      value={this.state.Email_Address}
-                      onChange={this.onChange} required
-                    />
-                    <span className="text-danger">{this.state.EmailAddressError}</span>
-                  </div>
-                </div>
-
-                <div className="form-group" style={{marginTop:50, marginBottom: 40, display: "flex" }}>
-                  <label><span className="fa fa-lock" style={{ fontSize: "28px" }}></span> </label>
-                  <div className="col-sm-12">
-                    <input type="password"
-                      className="form-control" placeholder="Password"
-                      name="Password"
-                      value={this.state.Password}
-                      onChange={this.onChange} required
-                    />
-                    <span className="text-danger">{this.state.PasswordError}</span>
-                  </div>
-                </div>
-
-              <button
-                type='submit'
-                className='btn btn-lg btn-primary btn btn-outline-success'
-                style={{marginLeft: 200}}
-              >
-                Sign In
-              </button>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.Email_Address}
+                  error={errors.Email_Address}
+                  id="Email_Address"
+                  type="email"
+                  className={classnames("", {
+                    invalid: errors.Email_Address || errors.Email_Addressnotfound
+                  })}
+                />
+                <label htmlFor="Email_Address">Email Address</label>
+                <span className="red-text">
+                  {errors.Email_Address}
+                  {errors.Email_Addressnotfound}
+                </span>
+              </div>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.Password}
+                  error={errors.Password}
+                  id="Password"
+                  type="password"
+                  className={classnames("", {
+                    invalid: errors.Password || errors.Passwordincorrect
+                  })}
+                />
+                <label htmlFor="Password">Password</label>
+                <span className="red-text">
+                  {errors.Password}
+                  {errors.Passwordincorrect}
+                </span>
+              </div>
+              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                <button
+                  style={{
+                    width: "150px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    marginTop: "1rem"
+                  }}
+                  type="submit"
+                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                >
+                  Login
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -118,5 +115,16 @@ class Login extends Component {
     );
   }
 }
-
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
