@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
-import '../../App.css';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 class Login extends Component {
   constructor() {
@@ -18,6 +20,7 @@ class Login extends Component {
 
 componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
+      alert('Successfully Logged In')
       this.props.history.push("/profile"); 
     }
 if (nextProps.errors) {
@@ -44,24 +47,24 @@ render() {
     const { errors } = this.state;
     
 return (
-      <div className="container">
+      <div style={{ marginTop: "10rem", marginBottom: "4rem" }} className="container">
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
-              home
-            </Link>
-            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-              <h3>
-                <b>Sign In for Fashow</b> 
-              </h3>
-              <p className="grey-text text-darken-1">
+            <div className="col s12" style={{ marginTop:'8rem', paddingLeft: "11.250px" }}>
+              <h1>
+                <b>Sign In for Fashow</b>
+              </h1>
+              <p className="grey-text text-darken-1" style={{marginTop:'2rem'}}>
                 Don't have an account? <Link to="/register">Register</Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
-                <input
+                <TextField
+                  error
+                  style={{marginTop:'2rem', width: '25%'}}
+                  label="Email Address"
+                  variant="filled"
                   onChange={this.onChange}
                   value={this.state.Email_Address}
                   error={errors.Email_Address}
@@ -70,15 +73,17 @@ return (
                   className={classnames("", {
                     invalid: errors.Email_Address || errors.Email_Addressnotfound
                   })}
+                  helperText={errors.Email_Address}
                 />
-                <label htmlFor="Email_Address">Email Address</label>
                 <span className="red-text">
-                  {errors.Email_Address}
                   {errors.Email_Addressnotfound}
                 </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <TextField
+                  style={{marginTop:'2rem', width: '25%'}}
+                  label="Password"
+                  variant="filled"
                   onChange={this.onChange}
                   value={this.state.Password}
                   error={errors.Password}
@@ -87,26 +92,27 @@ return (
                   className={classnames("", {
                     invalid: errors.Password || errors.Passwordincorrect
                   })}
+                  helperText={errors.Password}
                 />
-                <label htmlFor="Password">Password</label>
                 <span className="red-text">
-                  {errors.Password}
                   {errors.Passwordincorrect}
                 </span>
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
+                <Button
                   style={{
                     width: "150px",
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
-                    marginTop: "1rem"
+                    marginTop: "1.5em"
                   }}
+                  variant="outlined"
+                  color="primary"
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  
                 >
                   Login
-                </button>
+                </Button>
               </div>
             </form>
           </div>

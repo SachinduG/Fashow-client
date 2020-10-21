@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
-import '../../App.css';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 class Register extends Component {
   constructor() {
@@ -23,7 +25,7 @@ class Register extends Component {
 
 componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/profile");
+      this.props.history.push("/login");
     }
   }
 
@@ -57,123 +59,139 @@ const newUser = {
 render() {
     const { errors } = this.state;
 return (
-  <div className="container">
+  <div style={{ marginTop: "10rem", marginBottom: "4rem" }} className="container">
     <div className="row">
       <div className="col s8 offset-s2">
-        <Link to="/" className="btn-flat waves-effect">
-          <i className="material-icons left">keyboard_backspace</i> Back to
-            home
-        </Link>
           <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-            <h4>
+            <h1>
               <b>Sign Up for Fashow</b>
-            </h4>
+            </h1>
             <p className="grey-text text-darken-1">
               Already have an account? <Link to="/login">Log in</Link>
             </p>
           </div>
           
           <form noValidate onSubmit={this.onSubmit}>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.First_Name}
-                error={errors.First_Name}
-                id="First_Name"
-                type="text"
-                className={classnames("", {
-                  invalid: errors.First_Name
-                })}
-              />
-              <label htmlFor="First_Name">First Name</label>
-              <span className="red-text">{errors.First_Name}</span>
-            </div>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.Last_Name}
-                error={errors.Last_Name}
-                id="Last_Name"
-                type="text"
-                className={classnames("", {
-                  invalid: errors.Last_Name
-                })}
-              />
-              <label htmlFor="Last_Name">Last Name</label>
-              <span className="red-text">{errors.Last_Name}</span>
-            </div>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.Email_Address}
-                error={errors.Email_Address}
-                id="Email_Address"
-                type="email"
-                className={classnames("", {
-                  invalid: errors.Email_Address
-                })}
-              />
-              <label htmlFor="Email_Address">Email Address</label>
-              <span className="red-text">{errors.Email_Address}</span>
-            </div>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.Mobile_Number}
-                error={errors.Mobile_Number}
-                id="Mobile_Number"
-                type="number"
-                className={classnames("", {
-                  invalid: errors.Mobile_Number
-                })}
-              />
-              <label htmlFor="Mobile_Number">Mobile Number</label>
-              <span className="red-text">{errors.Mobile_Number}</span>
-            </div>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.Home_Address}
-                error={errors.Home_Address}
-                id="Home_Address"
-                type="text"
-                className={classnames("", {
-                  invalid: errors.Home_Address
-                })}
-              />
-              <label htmlFor="Home_Address">Home Address</label>
-              <span className="red-text">{errors.Home_Address}</span>
-            </div>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.Password}
-                error={errors.Password}
-                id="Password"
-                type="password"
-                className={classnames("", {
-                  invalid: errors.Password
-                })}
-              />
-              <label htmlFor="Password">Password</label>
-              <span className="red-text">{errors.Password}</span>
-            </div>
-            <div className="input-field col s12">
-              <input
-                onChange={this.onChange}
-                value={this.state.Password2}
-                error={errors.Password2}
-                id="Password2"
-                type="password"
-                className={classnames("", {
-                  invalid: errors.Password2
-                })}
-              />
-              <label htmlFor="Password2">Confirm Password</label>
-              <span className="red-text">{errors.Password2}</span>
-            </div>
-            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-              <button
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <TextField
+                  error
+                  style={{marginTop:'2rem', width: '40%', marginLeft: '25rem'}}
+                  label="First Name"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.First_Name}
+                  error={errors.First_Name}
+                  id="First_Name"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.First_Name
+                  })}
+                  helperText={errors.First_Name}
+                />
+              </Grid>
+              <Grid item xs={6}>
+              <TextField
+                  error
+                  style={{marginTop:'2rem', width: '40%', marginRight: '25rem'}}
+                  label="Last Name"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.Last_Name}
+                  error={errors.Last_Name}
+                  id="Last_Name"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.Last_Name
+                  })}
+                  helperText={errors.Last_Name}
+                />
+              </Grid>
+              <Grid item xs={6}>
+              <TextField
+                  error
+                  style={{marginTop:'2rem', width: '40%', marginLeft: '25rem'}}
+                  label="Email Address"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.Email_Address}
+                  error={errors.Email_Address}
+                  id="Email_Address"
+                  type="email"
+                  className={classnames("", {
+                    invalid: errors.Email_Address
+                  })}
+                  helperText={errors.Email_Address}
+                />
+              </Grid>
+              <Grid item xs={6}>
+              <TextField
+                  error
+                  style={{marginTop:'2rem', width: '40%', marginRight: '25rem'}}
+                  label="Mobile Number"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.Mobile_Number}
+                  error={errors.Mobile_Number}
+                  id="Mobile_Number"
+                  type="number"
+                  className={classnames("", {
+                    invalid: errors.Mobile_Number
+                  })}
+                  helperText={errors.Mobile_Number}
+                />
+              </Grid>
+              <Grid item xs={12}>
+              <TextField
+                  error
+                  style={{marginTop:'2rem', width: '45%'}}
+                  label="Home Address"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.Home_Address}
+                  error={errors.Home_Address}
+                  id="Home_Address"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.Home_Address
+                  })}
+                  helperText={errors.Home_Address}
+                />
+              </Grid>
+              <Grid item xs={6}>
+              <TextField
+                  style={{marginTop:'2rem', width: '40%', marginLeft: '25rem'}}
+                  label="Password"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.Password}
+                  error={errors.Password}
+                  id="Password"
+                  type="password"
+                  className={classnames("", {
+                    invalid: errors.Password
+                  })}
+                  helperText={errors.Password}
+                />
+              </Grid>
+              <Grid item xs={6}>
+              <TextField
+                  style={{marginTop:'2rem', width: '40%', marginRight: '25rem'}}
+                  label="Confirm Password"
+                  variant="filled"
+                  onChange={this.onChange}
+                  value={this.state.Password2}
+                  error={errors.Password2}
+                  id="Password2"
+                  type="password"
+                  className={classnames("", {
+                    invalid: errors.Password2
+                  })}
+                  helperText={errors.Password2}
+                />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
                 style={{
                   width: "150px",
                   borderRadius: "3px",
@@ -181,11 +199,13 @@ return (
                   marginTop: "1rem"
                 }}
                 type="submit"
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                variant="outlined"
+                color="primary"
               >
                 Sign up
-              </button>
-            </div>
+              </Button>
+            </Grid>
+            </Grid>
           </form>
         </div>
       </div>
