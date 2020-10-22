@@ -22,6 +22,8 @@ componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       alert('Successfully Logged In')
       this.props.history.push("/profile"); 
+    }else {
+      alert('Email or Password is wrong')
     }
 if (nextProps.errors) {
       this.setState({
@@ -71,13 +73,11 @@ return (
                   id="Email_Address"
                   type="email"
                   className={classnames("", {
-                    invalid: errors.Email_Address || errors.Email_Addressnotfound
+                    invalid: errors.Email_Address 
                   })}
                   helperText={errors.Email_Address}
                 />
-                <span className="red-text">
-                  {errors.Email_Addressnotfound}
-                </span>
+                
               </div>
               <div className="input-field col s12">
                 <TextField
@@ -90,13 +90,11 @@ return (
                   id="Password"
                   type="password"
                   className={classnames("", {
-                    invalid: errors.Password || errors.Passwordincorrect
+                    invalid: errors.Password 
                   })}
                   helperText={errors.Password}
                 />
-                <span className="red-text">
-                  {errors.Passwordincorrect}
-                </span>
+                
               </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <Button
